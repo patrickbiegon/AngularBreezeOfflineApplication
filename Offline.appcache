@@ -1,0 +1,79 @@
+﻿CACHE MANIFEST
+#version 2016-07-05 v0.2
+CACHE:
+/DistrictManagement/Mobile/Enrollment/Index.html
+/favicon2.ico
+
+/Content/bootstrap.min.css
+/Content/font-awesome.min.css
+/Content/xeditable.css
+/Content/Site.css
+/Scripts/yaaas/yaaas.css
+
+
+/DistrictManagement/Mobile/Enrollment/App/Enrollment.css
+
+/Images/loading.gif
+
+/Scripts/jquery-2.1.1.min.js
+/Scripts/angular.min.js
+/Scripts/angular-route.min.js
+/Scripts/breeze.min.js
+/Scripts/breeze.angular.js
+/Scripts/bootstrap.min.js
+/Scripts/ui-bootstrap-tpls-0.12.0.min.js
+/Scripts/localForage.js
+/Scripts/angular-localForage.js
+/Scripts/alasql.min.js
+/Scripts/xlsx.core.min.js
+/Scripts/breeze.savequeuing.js
+/Scripts/xeditable.min.js
+/Scripts/anguFixedHeaderTable.js
+/Scripts/mask.min.js
+/Scripts/yaaas/yaaas.js
+/Scripts/angular-validate.min.js
+
+/Library/Web/Client/BaseDataservice.js
+/Library/Web/Client/OAF.Directives.js
+/Library/Web/Client/OAF.Selectors.js
+/Library/Web/Client/OafLocationSelectorDirective.js
+/Library/Web/Client/NavbarDirective.js
+/Library/Web/Client/qImproved.js   
+
+/DistrictManagement/Mobile/Enrollment/App/Main.js
+/DistrictManagement/Mobile/Enrollment/App/Dataservice.js
+/DistrictManagement/Mobile/Enrollment/App/LocalPersistence.js 
+/DistrictManagement/Mobile/Enrollment/App/HttpInterceptors.js
+
+/DistrictManagement/Mobile/Enrollment/App/Services/EnrollmentServiceClass.js
+
+/DistrictManagement/Mobile/Enrollment/App/Controllers/SiteManagement.js
+/DistrictManagement/Mobile/Enrollment/App/Controllers/GroupManagement.js
+/DistrictManagement/Mobile/Enrollment/App/Controllers/ClientManagement.js
+/DistrictManagement/Mobile/Enrollment/App/Controllers/ClientContract.js
+/DistrictManagement/Mobile/Enrollment/App/Controllers/ClientDetails.js
+/DistrictManagement/Mobile/Enrollment/App/Controllers/SearchClients.js
+
+
+/DistrictManagement/Mobile/Enrollment/App/fonts/FontAwesome.otf
+/DistrictManagement/Mobile/Enrollment/App/fonts/fontawesome-webfont.eot
+/DistrictManagement/Mobile/Enrollment/App/fonts/fontawesome-webfont.svg
+/DistrictManagement/Mobile/Enrollment/App/fonts/fontawesome-webfont.ttf
+/DistrictManagement/Mobile/Enrollment//App/fonts/fontawesome-webfont.woff
+
+/DistrictManagement/Mobile/Enrollment/App/Views/GroupManagement.html
+/DistrictManagement/Mobile/Enrollment/App/Views/ClientDetails.html
+/DistrictManagement/Mobile/Enrollment/App/Views/ClientManagement.html
+/DistrictManagement/Mobile/Enrollment/App/Views/SearchClients.html
+/DistrictManagement/Mobile/Enrollment/App/Views/SiteManagement.html
+/DistrictManagement/Mobile/Enrollment/App/Views/ClientContract.html
+
+NETWORK:
+*
+
+FALLBACK:
+/DistrictManagement/Mobile/Enrollment/App/fonts/FontAwesome.otf  /DistrictManagement/Mobile/Enrollment/App/fonts/FontAwesome.otf
+/DistrictManagement/Mobile/Enrollment/App/fonts/fontawesome-webfont.eot /DistrictManagement/Mobile/Enrollment/App/fonts/fontawesome-webfont.eot
+/DistrictManagement/Mobile/Enrollment/App/fonts/fontawesome-webfont.svg /DistrictManagement/Mobile/Enrollment/App/fonts/fontawesome-webfont.svg
+/DistrictManagement/Mobile/Enrollment/App/fonts/fontawesome-webfont.ttf /DistrictManagement/Mobile/Enrollment/App/fonts/fontawesome-webfont.ttf
+/DistrictManagement/Mobile/Enrollment/App/fonts/fontawesome-webfont.woff /DistrictManagement/Mobile/Enrollment/App/fonts/fontawesome-webfont.woff

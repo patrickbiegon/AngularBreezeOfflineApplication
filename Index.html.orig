@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html> <!--manifest="./Enrollment.appcache"-->
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+
+        <title>Mobile Enrollment</title>
+        <link rel="stylesheet" href="/Content/bootstrap.min.css" />
+        <link rel="stylesheet" href="/Content/bootstrap-theme.min.css" />
+        <link rel="stylesheet" href="/Content/font-awesome.min.css" />
+        <link rel="stylesheet" href="/Content/xeditable.css" />
+        <link rel="stylesheet" href="/Content/Site.css" />
+        <link rel="stylesheet" href="/Scripts/yaaas/yaaas.css" />
+        <link rel="stylesheet" href="App/Enrollment.css" />
+    </head>
+    <body data-ng-app="Enrollment">
+        <!-- App appears here -->
+        <div id="applicationHost" data-ng-view >
+        <div wc-overlay wc-overlay-delay="300"></div>
+        </div>
+  
+        <!-- 3rd party libraries -->
+        <script src="/Scripts/jquery-2.1.1.min.js"></script>
+        <script src="/Scripts/angular.min.js"></script>
+        <script src="/Scripts/angular-route.min.js"></script>
+        <script src="/Scripts/breeze.min.js"></script>
+        <script src="/Scripts/breeze.angular.js"></script>
+        <script src="/Scripts/bootstrap.min.js"></script>
+        <script src="/Scripts/ui-bootstrap-tpls-0.12.0.min.js"></script>
+        <script src="/Scripts/localForage.js"></script>
+        <script src="/Scripts/angular-localForage.js"></script>
+        <script src="/Scripts/alasql.min.js"></script>
+        <script src="/Scripts/xlsx.core.min.js"></script>
+        <script src="/Scripts/breeze.savequeuing.js"></script>
+        <script src="/Scripts/xeditable.min.js"></script>
+        <script src="/Scripts/anguFixedHeaderTable.js"></script>
+        <script src="/Scripts/mask.min.js"></script>
+        <script src="/Scripts/yaaas/yaaas.js"></script>
+        <script src="/Scripts/angular-validate.min.js"></script>
+
+        <!-- App libraries -->
+        <script src="/Library/Web/Client/BaseDataservice.js"></script>
+        <script src="/Library/Web/Client/OAF.Directives.js"></script>
+        <script src="/Library/Web/Client/OAF.Selectors.js"></script>
+        <script src="/Library/Web/Client/OafLocationSelectorDirective.js"></script>
+        <script src="/Library/Web/Client/NavbarDirective.js"></script>
+        <script src="/Library/Web/Client/qImproved.js"></script>   
+
+        <!-- Dataservice -->
+        <script src="App/Main.js"></script>
+        <script src="App/Dataservice.js"></script>
+        <script src="App/LocalPersistence.js"></script>
+<<<<<<< HEAD
+        <script src="App/HttpInterceptors.js"></script>
+=======
+>>>>>>> origin/mobile-enrollment-offline
+
+        <!-- Factories -->
+        <script src="App/Services/EnrollmentServiceClass.js"></script>
+
+        <!-- Controllers -->
+        <script src="App/Controllers/SiteManagement.js"></script>
+        <script src="App/Controllers/GroupManagement.js"></script>
+        <script src="App/Controllers/ClientManagement.js"></script>
+        <script src="App/Controllers/ClientContract.js"></script>
+        <script src="App/Controllers/ClientDetails.js"></script>
+        <script src="App/Controllers/SearchClients.js"></script>
+        
+    </body>
+</html>

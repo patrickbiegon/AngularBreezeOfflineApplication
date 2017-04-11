@@ -1,0 +1,156 @@
+﻿<div class="container-fluid">
+    
+    <h3>
+        <small>{{vm.country.Name}}</small>
+        <br/>
+        Site Management: <b>{{vm.district.Name}}</b> <small>{{vm.season.SeasonName}}</small>
+
+        <!-- online status -->
+        <span ng-click="vm.ds.isOnline = !vm.ds.isOnline" ng-show="vm.ds.isOnline" class="text-success">
+            <i class="fa fa-check-circle-o pull-right"></i>
+        </span>
+        <span ng-click="vm.ds.isOnline = !vm.ds.isOnline" ng-show="!vm.ds.isOnline" class="text-danger">
+            <i class="fa fa-times-circle-o pull-right"></i>
+        </span>
+        <!-- search sites -->
+        <i class="fa fa-search pull-right" data-toggle="collapse" data-target="#site-search"></i>        
+        <!-- select locations -->
+        <i class="fa fa-map-marker pull-right" data-toggle="collapse" data-target="#location-selector"></i>
+        
+        <br/>
+        <small>
+            <span ng-show="vm.filteredSites.length != vm.Sites.length">
+                <strong>{{vm.filteredSites.length}}</strong> of 
+            </span>
+            {{vm.Sites.length}} active sites total
+        </small>
+    </h3>
+    
+    <!-- location selector -->
+    <div id="location-selector" class="collapse {{vm.district.DistrictId && vm.season.SeasonId ? '' : 'in'}}">                
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-sm-1 col-md-1" style="top: 6px">
+                <label>Country: </label>
+            </div>
+            <div class="col-sm-2 col-md-2">
+                <oaf-location-selector type="country"
+                                       selected="vm.country" list="vm.countryList">
+                </oaf-location-selector>
+            </div>
+            <div class="col-sm-1 col-md-1" style="top: 6px">
+                <label>District: </label>
+            </div>
+            <div class="col-sm-2 col-md-2">
+                <oaf-location-selector type="district"
+                                       parent="vm.country" parent-type="country"
+                                       selected="vm.district" list="vm.districtList"
+                                       after-value-change="vm.onSelectionChange(newVal)">
+                </oaf-location-selector>
+            </div>
+            <div class="col-sm-1 col-md-1" style="top: 6px">
+                <label>Season: </label>
+            </div>
+            <div class="col-sm-2 col-md-2">
+                <oaf-location-selector type="season"
+                                       parent="vm.district" parent-type="district"
+                                       selected="vm.season" list="vm.seasonList"
+                                       after-value-change="vm.onSelectionChange(newVal)">
+                </oaf-location-selector>
+            </div>
+        </div>
+    </div>
+    
+    <!-- site search -->
+    <div id="site-search" class="collapse">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                            <input type="text" ng-model="vm.search" ng-model-options="{ debounce: 1000 }" 
+                                   class="form-control site-search" placeholder="Search for a Site Name">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>        
+    </div>
+
+    <div ng-if="vm.district.DistrictId && vm.season.SeasonId && vm.sitesLoading == 1">
+        <span>
+            <img src='/Images/loading.gif' />
+        </span>
+    </div>
+    <!-- table-height optimized for tablet landscape view -->
+    <div ng-if="vm.district.DistrictId && vm.season.SeasonId && vm.sitesLoading == 0" class="table-responsive">
+        <table fixed-header table-height="525px"
+               class="table table-borderless table-condensed table-hover">
+            <!-- site headers -->
+            <thead>
+                <tr>
+                    <th>
+                        <a href="#" ng-click="vm.sortColumn = 'Name'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">Name
+                            <span ng-show="vm.sortColumn == 'Name' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                            <span ng-show="vm.sortColumn == 'Name' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                        </a>
+                    </th>
+                    <th><a href="#" ng-click="vm.sortColumn = 'TotalGroups'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">Total Groups
+                            <span ng-show="vm.sortColumn == 'TotalGroups' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                            <span ng-show="vm.sortColumn == 'TotalGroups' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                        </a>
+                    </th>
+                        
+                    <th><a href="#" ng-click="vm.sortColumn = 'Age'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">Age
+                            <span ng-show="vm.sortColumn == 'Age' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                            <span ng-show="vm.sortColumn == 'Age' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                        </a>
+                    </th>
+                    <th><a href="#" ng-click="vm.sortColumn = 'TotalChanges'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">Total Changes
+                            <span ng-show="vm.sortColumn == 'TotalChanges' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                            <span ng-show="vm.sortColumn == 'TotalChanges' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                        </a>
+                    </th>
+                    <th ng-show="vm.ds.isOnline">
+                        Sync Actions
+                    </th>
+                </tr>
+            </thead>
+            <!-- sites -->
+            <tbody>
+                <tr ng-repeat="site in vm.filteredSites | orderBy:vm.sortColumn:vm.sortReverse | filter:vm.searchSites()">
+                    <td class="site-name">
+                        <a href="#/GroupManagement/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{site.SiteId}}">
+                            {{site.Name}}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#/GroupManagement/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{site.SiteId}}">
+                            {{site.TotalGroups}}
+                        </a>
+                    </td>
+                    <!-- todo age -->
+                    <td>
+                        <a href="#/GroupManagement/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{site.SiteId}}">
+                            #
+                        </a>
+                    </td>
+                    <!-- todo changes -->
+                    <td>
+                        <a href="#/GroupManagement/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{site.SiteId}}">
+                            #
+                        </a>
+                    </td>
+                    <td ng-show="vm.ds.isOnline" class="site-sync-actions">
+                        <i class="fa fa-cloud-download" ng-click="vm.downloadSite()"/>
+                        &nbsp;&nbsp;
+                        <i class="fa fa-cloud-upload"ng-click="vm.uploadSite()"/>
+                        &nbsp;&nbsp;
+                        <i class="fa fa-refresh" ng-click="vm.syncSite()"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>    

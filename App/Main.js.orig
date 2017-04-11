@@ -1,0 +1,84 @@
+﻿/* main: startup script creates the 'app' module */
+/* TODO: Handle changes in the appcache (changes happen after website loads) */
+// TODO: Gear toward online use
+// TODO: Warning when downloading data and unsaved changes exist (ngSettings)
+(function () {
+
+    // app module depends on "Breeze Angular Service"
+    var app = angular.module('Enrollment', ['ngRoute', 'breeze.angular', 'ui.bootstrap', 'OafLocationSelectorDirective',
+<<<<<<< HEAD
+        'OAF.Directives','wc.directives', 'OAF.Selectors', 'OAFLibrary', 'LocalForageModule', 'anguFixedHeaderTable', 'yaaas']);
+=======
+        'OAF.Directives', 'OAF.Selectors', 'OAFLibrary', 'LocalForageModule', 'anguFixedHeaderTable', 'yaaas']);
+>>>>>>> origin/mobile-enrollment-offline
+
+    app.config(['$routeProvider', '$locationProvider',
+        function ($routeProvider, $locationProvider) {
+            $routeProvider
+                .when('/', {
+                    templateUrl: 'App/Views/SiteManagement.html',
+                    controller: 'SiteManagementController',
+                    controllerAs: 'vm'
+                })
+                .when('/SiteManagement/', {
+                    templateUrl: 'App/Views/SiteManagement.html',
+                    controller: 'SiteManagementController',
+                    controllerAs: 'vm'
+                })
+                .when('/SiteManagement/country/:countryId', {
+                    templateUrl: 'App/Views/SiteManagement.html',
+                    controller: 'SiteManagementController',
+                    controllerAs: 'vm'
+                })
+                .when('/SiteManagement/district/:districtId/', {
+                    templateUrl: 'App/Views/SiteManagement.html',
+                    controller: 'SiteManagementController',
+                    controllerAs: 'vm'
+                })
+                .when('/SiteManagement/country/:countryId/season/:seasonId/', {
+                    templateUrl: 'App/Views/SiteManagement.html',
+                    controller: 'SiteManagementController',
+                    controllerAs: 'vm'
+                })
+                .when('/SiteManagement/district/:districtId/season/:seasonId/', {
+                    templateUrl: 'App/Views/SiteManagement.html',
+                    controller: 'SiteManagementController',
+                    controllerAs: 'vm'
+                })
+
+                .when('/GroupManagement/district/:districtId/season/:seasonId/site/:siteId', {
+                    templateUrl: 'App/Views/GroupManagement.html',
+                    controller: 'GroupManagementController',
+                    controllerAs: 'vm'
+                })
+
+                .when('/ClientManagement/district/:districtId/season/:seasonId/site/:siteId/group/:groupId', {
+                    templateUrl: 'App/Views/ClientManagement.html',
+                    controller: 'ClientManagementController',
+                    controllerAs: 'vm'
+                })
+
+                .when('/ClientDetails/district/:districtId/season/:seasonId/site/:siteId/group/:groupId/client/:clientId', {
+                    templateUrl: 'App/Views/ClientDetails.html',
+                    controller: 'ClientDetailsController',
+                    controllerAs: 'vm'
+                })
+
+                .when('/ClientContract/district/:districtId/season/:seasonId/site/:siteId/group/:groupId/client/:clientId', {
+                    templateUrl: 'App/Views/ClientContract.html',
+                    controller: 'ClientContractController',
+                    controllerAs: 'vm'
+                })
+
+                .when('/SearchClients/district/:districtId/season/:seasonId/site/:siteId/group/:groupId', {
+                    templateUrl: 'App/Views/SearchClients.html',
+                    controller: 'SearchClientsController',
+                    controllerAs: 'vm'
+                })
+
+                .otherwise({
+                    redirectTo: '/'
+                });
+        }]);
+
+})();

@@ -1,0 +1,234 @@
+﻿<div class="container-fluid">
+
+    <h3>
+        <small>
+            <a href="./#/SiteManagement/country/{{vm.country.CountryId}}">
+                {{vm.country.Name}}
+            </a>
+            /
+            <a href="./#/SiteManagement/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}">
+                {{vm.district.Name}}
+            </a>
+            /
+            <a href="./#/GroupManagement/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}">
+                {{vm.site.Name}}
+            </a>
+            /
+            <a href="./#/ClientManagement/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}/group/{{vm.group.GroupId}}">
+                {{vm.group.Name}}
+            </a>
+        </small>
+        <br />
+        Client Contract: <b>{{vm.clientCopy.LastName}} {{vm.clientCopy.FirstName}}</b> <small>{{vm.season.SeasonName}}</small>
+
+        <!-- online status -->
+        <span ng-click="vm.ds.isOnline = !vm.ds.isOnline" ng-show="vm.ds.isOnline" class="text-success">
+            <i class="fa fa-check-circle-o pull-right"></i>
+        </span>
+        <span ng-click="vm.ds.isOnline = !vm.ds.isOnline" ng-show="!vm.ds.isOnline" class="text-danger">
+            <i class="fa fa-times-circle-o pull-right"></i>
+        </span>
+    </h3>
+
+    <!-- client id & client details actions -->
+    <div style="margin-top: 20px;margin-bottom: 20px">
+        <div class="row">
+            <div class="col-sm-8 col-md-8">
+                <h3>
+                    <span class="client-details-header-indented">
+                        <small>OAFID: </small>{{vm.client.ClientId > 0 ? vm.client.ClientId : ''}}
+                        <small>Name: </small>{{vm.client.FirstName.length > 0 ? vm.client.FirstName : ''}} {{ vm.client.LastName.length > 0 ? vm.client.LastName : '' }}
+                        <small>Credit: </small> {{vm.totalCredit.totalCredit}}
+                    </span>
+                </h3>
+            </div>
+            <!-- <div class="col-sm-1 col-md-1">
+                <span class="client-details-actions-indented pull-right">
+                    <!-- save client
+                    <span ng-show="vm.isAdding" ng-click="vm.isAdding=false;vm.saveClient();"  class="text-success">
+                        <i class="fa fa-check"></i>
+                    </span>
+                </span>
+            </div>-->
+            <div class="col-sm-2 col-md-2">
+                <span class="client-details-actions-indented pull-right">
+                    <!-- edit client details -->
+                    <span>
+                        <a  href="./#/ClientDetails/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}/group/{{vm.group.GroupId}}/client/{{vm.client.ClientId}}">
+                            <i class="fa fa-info"></i>
+                        </a>
+                    </span>
+                    <!-- edit client -->
+                    <span ng-show="!vm.isAdding" ng-click="vm.changeMode('edit');">
+                        <i class="fa fa-pencil"></i>
+                    </span>
+                    <!-- save client -->
+                    <span ng-show="vm.isAdding" ng-click="vm.isAdding=false;vm.saveClient();" class="text-success">
+                        <i class="fa fa-check"></i>
+                    </span>
+                    <!-- cancel save -->
+                    <span ng-show="vm.isAdding" ng-click="vm.isAdding=false;vm.clearClient();" class="text-danger">
+                        <i class="fa fa-times"></i>
+                    </span>
+                </span>
+            </div>
+            <div class="col-sm-1 col-md-1">
+                <span class="client-details-actions-indented pull-right">
+                    <!-- add clients to group -->
+                    <a href="#/SearchClients/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}/group/{{vm.group.GroupId}}">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="col-sm-1 col-md-1">
+                <span class="client-details-actions-indented pull-right">
+                    <!-- create new client -->
+                    <span>
+                        <a href="#/ClientDetails/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}/group/{{vm.group.GroupId}}/client/0">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="vm.clientLoading == 1">
+        <span class="client-details-header-indented">
+            <img src='/Images/loading.gif' />
+        </span>
+    </div>
+
+    <div ng-show="vm.client.ClientBundles.length > 0" class="table-responsive">
+        <div class="container-fluid ">
+            <table fixed-header table-height="525px"
+                   class="table table-borderless table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            <a href="#" ng-click="vm.sortColumn = 'Signed'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">
+                                Bundle
+                                <span ng-show="vm.sortColumn == 'Signed' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                                <span ng-show="vm.sortColumn == 'Signed' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="vm.sortColumn = 'Signed'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">
+                                Quantity
+                                <span ng-show="vm.sortColumn == 'Signed' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                                <span ng-show="vm.sortColumn == 'Signed' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="vm.sortColumn = 'Signed'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">
+                                Credit
+                                <span ng-show="vm.sortColumn == 'Signed' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                                <span ng-show="vm.sortColumn == 'Signed' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="vm.sortColumn = 'Signed'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">
+                                Selections
+                                <span ng-show="vm.sortColumn == 'Signed' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                                <span ng-show="vm.sortColumn == 'Signed' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                            </a>
+                        </th>
+                        <th ng-show="vm.isAdding">
+                            Changes
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="bundle in vm.client.ClientBundles track by $index">
+                        <td class="client-name">
+                            <span ng-hide="vm.isAdding && vm.newBundle.BundleId == bundle.BundleId" ng-click="vm.makeEditable(bundle)">{{bundle.Bundle.BundleName}}</span>
+                            <span ng-show="vm.isAdding && vm.newBundle.BundleId == bundle.BundleId">
+                                <select ng-model="vm.newBundle.Index">
+                                    <option ng-repeat="bundleChoice in vm.bundles track by $index" value="{{$index}}">{{bundleChoice.BundleName}}</option>
+                                </select>
+                            </span>
+                        </td>
+                        <td class="client-name">
+                            <span ng-hide="vm.isAdding && vm.newBundle.BundleId == bundle.BundleId">
+                                {{bundle.BundleQuantity}}
+                             </span>
+                            <select ng-show="vm.isAdding && vm.newBundle.BundleId == bundle.BundleId" ng-model="vm.newBundle.BundleQuantity">
+                                <option ng-repeat="quantity in vm.bundles[vm.newBundle.Index].AcceptableQuantityList.split(',')" value="{{quantity}}">{{ quantity }}</option>
+                            </select>
+                        </td>
+                        <td class="client-name">
+                            <span ng-hide="vm.isAdding && vm.newBundle.BundleId == bundle.BundleId">
+                                {{bundle.bundleCostTotal}}
+                            </span>
+                            <span ng-show="vm.isAdding && vm.newBundle.BundleId == bundle.BundleId">Total: {{vm.bundles[vm.newBundle.Index].BundleCost_Fixed + (vm.bundles[vm.newBundle.Index].BundleCost_PerBundle * vm.newBundle.BundleQuantity)}}</span>
+                        </td>
+                        <td class="client-name">
+                            <ul ng-hide="vm.isAdding && vm.newBundle.BundleId == bundle.BundleId">
+                                <li ng-repeat="choice in bundle.ClientBundleInputChoices">
+                                    <span>
+                                        {{choice.BundleInput.SelectionGroup}}: {{choice.BundleInput.Input.InputName}}
+                                    </span>
+                                </li>
+                            </ul>
+                            <ul ng-show="vm.isAdding && vm.newBundle.BundleId == bundle.BundleId">
+                                <li ng-repeat="selection in vm.selectedBundleSelectionGroups">
+                                    <span>{{selection.name}}</span>
+                                    <select ng-model="selection.selection">
+                                        <option ng-selected="input.BundleInputId == selection.selection" ng-repeat="input in selection.inputs" value="{{input.BundleInputId}}">
+                                            {{input.Input.InputName}}
+                                        </option>
+                                    </select>
+                                </li>
+                            </ul>
+                        </td>
+                        <td ng-show="vm.isAdding && vm.newBundle.BundleId == bundle.BundleId">
+                            <i ng-click="vm.saveBundleEdits()" class="fa fa-check"></i>
+                        </td>
+                    </tr>
+                    <tr ng-show="vm.isAdding && vm.newBundle.editType=='edit'">
+                        <td>
+                            <i ng-click="vm.changeMode('edit')"title="Add New Bundle" class="fa fa-plus fa-3x" style="color: #ffffff;"></i>
+                        </td>
+                    </tr>
+                    <tr ng-show="vm.isAdding && vm.newBundle.editType=='create'">
+                        <td class="client-name">
+                            <select ng-model="vm.newBundle.Index">
+                                <option ng-repeat="bundleChoice in vm.bundles track by $index" value="{{$index}}">{{bundleChoice.BundleName}}</option>
+                            </select>
+                        </td>
+                        <td class="client-name">
+                            <select ng-model="vm.newBundle.BundleQuantity">
+                                <option ng-repeat="quantity in vm.bundles[vm.newBundle.Index].AcceptableQuantityList.split(',')" value="{{quantity}}">{{ quantity }}</option>
+                            </select>
+                            {{vm.bundles[$index].AcceptableQuantityList}}
+                        </td>
+                        <td class="client-name">
+                            <span>Total: {{vm.bundles[vm.newBundle.Index].BundleCost_Fixed + (vm.bundles[vm.newBundle.Index].BundleCost_PerBundle * vm.newBundle.BundleQuantity)}}</span>
+                        </td>
+                        <td class="client-name">
+                            <li ng-repeat="choice in vm.bundles[vm.newBundle.Index].ClientBundleInputChoices">
+                                <span>
+                                    {{choice.BundleInput.SelectionGroup}}: {{choice.BundleInput.Input.InputName}}
+                                </span>
+                            </li>
+
+                            <!-- We need to iterate through each of the input selections that are tied to this bundle-->
+                            <li ng-repeat="selection in vm.selectedBundleSelectionGroups">
+                                <span>{{selection.name}}</span>
+                                <select ng-model="selection.selection">
+                                    <option ng-repeat="input in selection.inputs" value="{{input.BundleInputId}}">
+                                        {{input.Input.InputName}}
+                                    </option>
+                                </select>
+                            </li>
+                        </td>
+                        <td>
+                            <i ng-click="vm.saveBundleEdits()" class="fa fa-check"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

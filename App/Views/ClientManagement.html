@@ -1,0 +1,198 @@
+﻿<div class="container-fluid">
+
+    <h3>
+        <small>
+            <a href="./#/SiteManagement/country/{{vm.country.CountryId}}">
+                {{vm.country.Name}}
+            </a>
+            / 
+            <a href="./#/SiteManagement/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}">
+                {{vm.district.Name}}
+            </a>
+            /
+            <a href="./#/GroupManagement/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}">
+                {{vm.site.Name}}
+            </a>
+        </small>
+        <br/>
+        Client Management: <b>{{vm.group.Name}}</b> <small>{{vm.season.SeasonName}}</small>
+
+        <!-- online status -->
+        <span ng-click="vm.ds.isOnline = !vm.ds.isOnline" ng-show="vm.ds.isOnline" class="text-success">
+            <i class="fa fa-check-circle-o pull-right"></i>
+        </span>
+        <span ng-click="vm.ds.isOnline = !vm.ds.isOnline" ng-show="!vm.ds.isOnline" class="text-danger">
+            <i class="fa fa-times-circle-o pull-right"></i>
+        </span>
+        <!-- search clients -->
+        <i class="fa fa-search pull-right" data-toggle="collapse" data-target="#client-search"></i>        
+        
+        <br/>
+        <small>
+            <span ng-show="vm.filteredClients.length != vm.Clients.length">
+                <strong>{{vm.filteredClients.length}}</strong> of 
+            </span>
+            {{vm.Clients.length}} clients total
+        </small>
+    </h3>
+    
+    <!-- client search -->
+    <div id="client-search" class="collapse">
+        <div class="row">
+            <div class="col-sm-10 col-md-10">
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                            <input type="text" ng-model="vm.search" ng-model-options="{ debounce: 1000 }" 
+                                   class="form-control client-search" placeholder="Search for a Client's Last Name, First Name, or OAFID">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-1 col-md-1">
+                <span class="client-mgmt-actions-indented pull-right">
+                    <!-- add clients to group -->
+                    <a href="#/SearchClients/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}/group/{{vm.group.GroupId}}">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="col-sm-1 col-md-1">
+                <span class="client-mgmt-actions-indented pull-right">
+                    <!-- create new client -->
+                    <span>
+                        <a href="#/ClientDetails/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}/group/{{vm.group.GroupId}}/client/0">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </span>
+                </span>
+            </div>
+        </div>        
+    </div>
+
+    <div ng-if="vm.clientsLoading == 1">
+        <span>
+            <img src='/Images/loading.gif' />
+        </span>
+    </div>
+    <div ng-if="vm.clientsLoading == 0" class="table-responsive">
+        <table fixed-header table-height="525px"
+            class="table table-borderless table-condensed table-hover">
+            <!-- client headers -->
+            <thead>
+                <tr>
+                    <th>
+                        <a href="#" ng-click="vm.sortColumn = 'LastName'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">Last Name
+                            <span ng-show="vm.sortColumn == 'LastName' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                            <span ng-show="vm.sortColumn == 'LastName' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" ng-click="vm.sortColumn = 'FirstName'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">First Name
+                            <span ng-show="vm.sortColumn == 'FirstName' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                            <span ng-show="vm.sortColumn == 'FirstName' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" ng-click="vm.sortColumn = 'ClientId'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">OAFID
+                            <span ng-show="vm.sortColumn == 'ClientId' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                            <span ng-show="vm.sortColumn == 'ClientId' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" ng-click="vm.sortColumn = 'GroupLeader'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">GL?
+                            <span ng-show="vm.sortColumn == 'GroupLeader' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                            <span ng-show="vm.sortColumn == 'GroupLeader' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                        </a>
+                    </th>
+                    <th><a href="#" ng-click="vm.sortColumn = 'TotalCredit'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">Total Credit
+                            <span ng-show="vm.sortColumn == 'TotalCredit' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                            <span ng-show="vm.sortColumn == 'TotalCredit' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" ng-click="vm.sortColumn = 'Dropped'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">Dr?
+                            <span ng-show="vm.sortColumn == 'Dropped' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                            <span ng-show="vm.sortColumn == 'Dropped' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" ng-click="vm.sortColumn = 'Deceased'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">De?
+                            <span ng-show="vm.sortColumn == 'Deceased' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                            <span ng-show="vm.sortColumn == 'Deceased' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" ng-click="vm.sortColumn = 'Banned'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">Ba?
+                            <span ng-show="vm.sortColumn == 'Banned' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                            <span ng-show="vm.sortColumn == 'Banned' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" ng-click="vm.sortColumn = 'Signed'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">Signed?
+                            <span ng-show="vm.sortColumn == 'Signed' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                            <span ng-show="vm.sortColumn == 'Signed' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+            <!-- clients -->
+            <tbody>
+                <tr ng-repeat="client in vm.filteredClients | orderBy:vm.sortColumn:vm.sortReverse | filter:vm.searchClients()">
+                    <td class="client-name">
+                        <a href="#/ClientContract/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}/group/{{vm.group.GroupId}}/client/{{client.ClientId}}">
+                            {{client.LastName}}
+                        </a>
+                    </td>
+                    <td class="client-name">
+                        <a href="#/ClientContract/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}/group/{{vm.group.GroupId}}/client/{{client.ClientId}}">
+                            {{client.FirstName}}
+                        </a>
+                    </td>
+                    <td>                        
+                        <a href="#/ClientContract/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}/group/{{vm.group.GroupId}}/client/{{client.ClientId}}">
+                            {{client.ClientId}}
+                        </a>
+                    </td>
+                    <td>                        
+                        <a href="#/ClientContract/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}/group/{{vm.group.GroupId}}/client/{{client.ClientId}}">
+                            <span ng-if="client.GroupLeader == 1" class="text-success">
+                                <i class="fa fa-check"/>
+                            </span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#/ClientContract/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}/group/{{vm.group.GroupId}}/client/{{client.ClientId}}">
+                            {{client.TotalCredit}}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#/ClientContract/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}/group/{{vm.group.GroupId}}/client/{{client.ClientId}}">
+                            <span ng-if="client.Dropped == 1" class="text-success">
+                                <i class="fa fa-check"/>
+                            </span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#/ClientContract/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}/group/{{vm.group.GroupId}}/client/{{client.ClientId}}">
+                            <span ng-if="client.Deceased == 1" class="text-success">
+                                <i class="fa fa-check"/>
+                            </span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#/ClientContract/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}/group/{{vm.group.GroupId}}/client/{{client.ClientId}}">
+                            <span ng-if="client.Banned == 1" class="text-success">
+                                <i class="fa fa-check"/>
+                            </span>
+                        </a>
+                    </td>
+                    <td> 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>    

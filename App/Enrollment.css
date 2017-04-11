@@ -1,0 +1,175 @@
+﻿/* body */
+body {
+    background-color: #191919;
+    color: #fff;
+    padding-top: 0;
+}
+
+/* headers */
+h3 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* table borders */
+.table-responsive,
+.table-borderless > tbody > tr > th,
+.table-borderless > tbody > tr > td {
+    border: none;
+}
+
+.table-borderless > thead > tr > th {
+    border-bottom: 2px solid #fff;
+}
+
+/* table links */
+a:hover, a:focus {
+    text-decoration: none;
+}
+.table > tbody > tr > td > a {
+    color: #fff;
+}
+
+/* table hover */
+.table-hover > tbody > tr:hover > th,
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > td > a {
+    background-color: #fff;
+    color: #191919;
+}
+
+/* table name columns */
+.site-name,
+.group-name,
+.client-name {
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+/* table sync actions */
+.site-sync-actions {
+    font-size: 1.25em;
+}
+
+/* search boxes */
+.site-search,
+.group-search,
+.client-search {
+    max-width: 100%;
+}
+
+.client-mgmt-actions-indented i.fa-search {
+    color: #fff;
+    font-size: 2em;
+    margin-right: 35px;
+}
+.client-mgmt-actions-indented i.fa-plus {
+    font-size: 2em;
+    margin-right: 70px;
+}
+
+/* start client details page styles */
+
+.client-details-header-indented {
+    margin-left: 70px;
+}
+
+.client-details-actions-indented a.fa-info,
+.client-details-actions-indented i.fa-pencil,
+.client-details-actions-indented i.fa-check,
+.client-details-actions-indented i.fa-times {
+    font-size: 2em;
+    margin-right: 35px;
+}
+.client-details-actions-indented a.fa-info {
+    color: #fff !important;
+    margin-right: 35px !important;
+}
+
+.client-details-actions-indented i.fa-search {
+    color: #fff;
+    font-size: 2em;
+    margin-right: 35px;
+}
+.client-details-actions-indented i.fa-plus {
+    font-size: 2em;
+    margin-right: 70px;
+}
+
+/* todo start update styles after updating from table to bootstrap div grid*/
+.client-details-table-indented {
+    margin-left:50px;
+}
+
+/* this wraps the table row when table is in portrait mode */
+.client-details-table-wrapped > tbody > tr > td {
+    font-size: 24px;
+    display: inline-block;
+    width: 375px;
+}
+
+.table-borderless > tbody > tr > td.client-details-table-label {
+    color: #fff;
+    font-weight: bold;
+    width: 360px;
+}
+/* todo start update styles after updating from table to bootstrap div grid*/
+
+.client-details-table-input-default,
+.client-details-table-input-default:focus {
+    background-color: #191919;
+    border: none;
+    color: #428bca;
+    max-width: 100%;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.client-details-table-input-editing,
+.client-details-table-input-editing:focus {
+    background-color: #fff;
+    color: #191919;
+}
+
+.client-details-table-input-changed,
+.client-details-table-input-changed:focus {
+    background-color: lightskyblue;
+    color: #191919;
+}
+
+/* end client details page styles */
+
+/* start search for clients & add clients to group page styles */
+
+.add-clients-actions-indented i.fa-pencil,
+.add-clients-actions-indented i.fa-times {
+    font-size: 2em;
+    margin-right: 35px;
+}
+
+.add-clients-actions-indented i.fa-plus,
+.add-clients-actions-indented i.fa-check {
+    font-size: 2em;
+    margin-right: 70px;
+}
+
+.table-borderless > tbody > tr > td.add-clients-table-selected {
+    background-color: lightskyblue;
+    border: none;
+    color: #191919;
+}
+.table-hover > tbody > tr:hover > td.add-clients-table-deselected,
+.table-hover > tbody > tr:hover > td.add-clients-table-deselected:focus {
+    background-color: #191919;
+    border: none;
+    color: #fff;
+}
+
+/* end search for clients & add clients to group page styles */
+
+/*
+    Client Contract CSS
+*/
+select {
+    color: #000000 !important;
+}

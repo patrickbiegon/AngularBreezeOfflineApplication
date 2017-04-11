@@ -1,0 +1,141 @@
+﻿<div class="container-fluid">
+    
+    <h3>
+        <small>
+            <a href="./#/SiteManagement/country/{{vm.country.CountryId}}">
+                {{vm.country.Name}}
+            </a>
+            / 
+            <a href="./#/SiteManagement/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}">
+                {{vm.district.Name}}
+            </a>
+        </small>
+        <br/>
+        Group Management: <b>{{vm.site.Name}}</b> <small>{{vm.season.SeasonName}}</small>
+
+        <!-- online status -->
+        <span ng-click="vm.ds.isOnline = !vm.ds.isOnline" ng-show="vm.ds.isOnline" class="text-success">
+            <i class="fa fa-check-circle-o pull-right"></i>
+        </span>
+        <span ng-click="vm.ds.isOnline = !vm.ds.isOnline" ng-show="!vm.ds.isOnline" class="text-danger">
+            <i class="fa fa-times-circle-o pull-right"></i>
+        </span>
+        <!-- search groups -->
+        <i class="fa fa-search pull-right" data-toggle="collapse" data-target="#group-search"></i>
+        <br/>
+        <small>
+            <span ng-show="vm.filteredGroups.length != vm.Groups.length">
+                <strong>{{vm.filteredGroups.length}}</strong> of 
+            </span>
+            {{vm.Groups.length}} active groups total
+        </small>
+    </h3>
+    
+    <!-- group search -->
+    <div id="group-search" class="collapse">
+        <div class="row">
+            <div class="col-sm-11 col-md-11">
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                            <input type="text" ng-model="vm.search" ng-model-options="{ debounce: 1000 }" 
+                                   class="form-control group-search" placeholder="Search for a Group Name">
+                             
+                        </div>
+                    </div>
+                </form>
+               
+            </div>
+        <div class="col-sm-1 col-md-1">
+            <!-- Add group -->
+            <span>
+             <i class="fa fa-plus" data-toggle="collapse" data-target="#group-add"></i>
+            </span>
+        </div>
+
+        </div>
+
+    </div>
+
+    <div ng-if="vm.groupsLoading == 1">
+        <span>
+            <img src='/Images/loading.gif' />
+        </span>
+    </div>
+    <div ng-if="vm.groupsLoading == 0" class="table-responsive">
+        <table fixed-header table-height="525px"
+            class="table table-borderless table-condensed table-hover">
+            <!-- group headers -->
+            <thead>
+                <tr>
+                    <th>
+                        <a href="#" ng-click="vm.sortColumn = 'Name'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">Name
+                            <span ng-show="vm.sortColumn == 'Name' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                            <span ng-show="vm.sortColumn == 'Name' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                        </a>
+                    </th>
+                    <th><a href="#" ng-click="vm.sortColumn = 'TotalEnrolled'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">Total Enrolled
+                            <span ng-show="vm.sortColumn == 'TotalEnrolled' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                            <span ng-show="vm.sortColumn == 'TotalEnrolled' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                        </a>
+                    </th>
+                        
+                    <th><a href="#" ng-click="vm.sortColumn = 'TotalCredit'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">Total Credit
+                            <span ng-show="vm.sortColumn == 'TotalCredit' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                            <span ng-show="vm.sortColumn == 'TotalCredit' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                        </a>
+                    </th>
+                    <th><a href="#" ng-click="vm.sortColumn = 'TotalSigned'; vm.sortReverse = !vm.sortReverse; $event.preventDefault();">Total Signed
+                            <span ng-show="vm.sortColumn == 'TotalSigned' && !vm.sortReverse" class="fa fa-chevron-down"></span>
+                            <span ng-show="vm.sortColumn == 'TotalSigned' && vm.sortReverse" class="fa fa-chevron-up"></span>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+            <!-- groups -->
+            <tbody>
+                <tr ng-repeat="group in vm.filteredGroups | orderBy:vm.sortColumn:vm.sortReverse">
+                    <td class="group-name">
+                        <a href="#/ClientManagement/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}/group/{{group.GroupId}}">
+                            {{group.Name}}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#/ClientManagement/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}/group/{{group.GroupId}}">
+                            {{group.TotalEnrolled}}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#/ClientManagement/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}/group/{{group.GroupId}}">
+                            {{group.TotalCredit}}
+                        </a>
+                    </td>
+                    <!-- todo total signed -->
+                    <td>
+                        <a href="#/ClientManagement/district/{{vm.district.DistrictId}}/season/{{vm.season.SeasonId}}/site/{{vm.site.SiteId}}/group/{{group.GroupId}}">
+                            #
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+ <div id="group-add" class="collapse" ng-if="vm.isAdding">
+        <div class="form-group">
+        <label class="sr-only">Group Name</label>
+        <input type="text" class="form-control" id="groupName" placeholder="Enter group name"  name="groupName" data-ng-model="vm.groupName" ng-maxlength="50" required>
+       
+        <button class="btn btn-success" id="newGrp" ng-click="vm.saveNewGroup()" >
+        <i class="fa fa-check"></i>
+        </button>
+        <button class="btn btn-danger" ng-click="vm.cancel();" >
+        <i class="fa fa-times"></i>
+        </button>     
+        <br />    
+        <p class="alert alert-danger" ng-if="vm.actionError">{{vm.errorMessage}}</p>
+        <p class="alert alert-success alert-dismissible" ng-if="vm.actionStatus">{{vm.successMessage}}</p>
+       </div>
+   </div>
+</div>    
